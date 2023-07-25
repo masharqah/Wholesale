@@ -37,3 +37,13 @@ class UserManager(models.Manager):
         else:
             errors['noemail']= "this email is not registered"
         return errors
+
+
+class User(models.Model):
+    fname = models.CharField(max_length=255)
+    lname = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    password=models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects=UserManager()
