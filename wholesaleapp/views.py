@@ -21,6 +21,7 @@ def login(request):
         logged_user=users[0]
         request.session['name']=f"{logged_user.fname} {logged_user.lname}"
         request.session['logged']=True
+        request.session['id']=users.id
     return redirect ('/home')
 
 def reg(request):
