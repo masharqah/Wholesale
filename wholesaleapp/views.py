@@ -19,7 +19,7 @@ def login(request):
     else:
         users=User.objects.filter(email=request.POST['email'])
         logged_user=users[0]
-        request.session['name']=f"{logged_user.fname} {logged_user.lname}"
+        request.session['name']=f"{logged_user.name}"
         request.session['logged']=True
         request.session['id']=users.id
     return redirect ('/home')
@@ -32,8 +32,9 @@ def reg(request):
         return redirect ('/')
     else:
         User.objects.create (
-            fname= request.POST['fname'],
-            lname= request.POST['lname'],
+            name= request.POST['name'],
+            adress= request.POST['name'],
+            phone_number= request.POST['phone_number']
             email= request.POST['email'],
             password=bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
             )

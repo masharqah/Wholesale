@@ -6,14 +6,14 @@ import bcrypt
 class UserManager(models.Manager):
     def reg_validator(self, postData):
         errors = {}
-        if len(postData['fname']) <2:
-            errors['fname'] = " First Name should be at least 2 characters"
-        if not postData['fname'].isalpha():
-            errors['fnameformat'] = " First Name should be only alphabatical characters"
-        if len(postData['lname']) <2:
-            errors['name'] = " Last Name should be at least 2 characters"
-        if not postData['lname'].isalpha():
-            errors['lnameformat'] = "Name should be only alphabatical characters"
+        if len(postData['name']) <2:
+            errors['name'] = " Name should be at least 2 characters"
+        if not postData['name'].isalpha():
+            errors['nameformat'] = " Name should be only alphabatical characters"
+        if len(postData['adress']) <2:
+            errors['adress'] = " adress should be at least 2 characters"
+        if not postData['adress'].isalpha():
+            errors['ladress'] = "adress should be only alphabatical characters"
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):
             errors['email'] = "invalid Email address"
@@ -40,8 +40,9 @@ class UserManager(models.Manager):
 
 
 class User(models.Model):
-    fname = models.CharField(max_length=255)
-    lname = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    adress = models.CharField(max_length=255)
+    telephone_number= models.CharField(max_length=15)
     email = models.CharField(max_length=255)
     password=models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
