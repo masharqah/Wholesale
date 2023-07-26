@@ -48,3 +48,12 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=UserManager()
+
+class Representative(models.Model):
+    name = models.CharField(max_length=255)
+    phone_no = models.IntegerField(max_length=10)
+    email = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    company = models.ForeignKey(User,on_delete=models.CASCADE, related_name="reps")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
