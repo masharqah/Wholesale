@@ -10,26 +10,27 @@
 <body>
     <div class="container" style="padding: 5%;">
         <form class="row g-3">
-            <form action="/add" method="post">
+            <form action="/edit_it" method="post">
+                <input type="hidden" name="rep_id" value="{{rep.id}}">
                 <div class="col-12">
                     <label class="form-label">Representative Name</label>
-                    <input type="text" class="form-control" id="inputAddress" style="width: 50%;" name="rep_name" >
+                    <input type="text" class="form-control" id="inputAddress" style="width: 50%;" name="rep_name" value="{{rep.name}}">
                 </div>
                 <div class="col-12">
                     <label class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" style="width: 50%;" name="phone_no">
+                    <input type="text" class="form-control" style="width: 50%;" name="phone_no" value="{{rep.phone_no}}">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">E-mail</label>
-                    <input type="text" class="form-control" name="email">
+                    <input type="text" class="form-control" name="email" value="{{rep.email}}">
                 </div>
                 <div class="col-md-6">
                     <label for="inputCity" class="form-label">City</label>
-                    <input type="text" class="form-control" name="city">
+                    <input type="text" class="form-control" name="city" value="{{rep.city}}">
                 </div>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 25%;">
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <button class="btn btn-outline-primary" for="btnradio1">Add</button>
+                    <button class="btn btn-outline-primary" for="btnradio1">Confirm</button>
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
             </form>
                     <a href="/home">

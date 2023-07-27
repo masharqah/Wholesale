@@ -51,7 +51,7 @@ class User(models.Model):
 
 class Representative(models.Model):
     name = models.CharField(max_length=255)
-    phone_no = models.IntegerField(max_length=10)
+    phone_no = models.CharField(max_length=10) #adjusted so it gets treated as phone number
     email = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     company = models.ForeignKey(User,on_delete=models.CASCADE, related_name="reps")

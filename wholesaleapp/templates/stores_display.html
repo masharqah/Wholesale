@@ -19,17 +19,23 @@
                 </tr>
             </thead>
             <tbody>
+                {% for user in users %}
                 <tr>
-                    <td><a href="#">Company Name</a> <a href="#">Edit</a> <a href="#">Delete</a> <a href="#">Add Representative</a></td>
-                    <td><select>
-                        <option>option A</option> 
-                    </select> <button type="submit" class="btn btn-primary btn-sm">Check details</button></td>
-                    <td>0599-123456</td>
-                    <td>companyemail@gmail.com</td>
+                    
+                    <td><a href="{% url 'companyView' user.id %}">{{user.name}}</a>{% if my_user.id == user.id %}<a href="/add_rep">Add Representative</a>{% endif %}</td>
+                    <td><form action="/view/{{user.reps.id}}" method="post">
+                        <select name="rep_id">
+                        {% for rep in reps %}
+                        <option value="{{user.reps.id}}">{{user.reps.name}}</option> 
+                    </select> <button type="submit" class="btn btn-primary btn-sm">Check details</button></form>{% if my_user.id == user.id %}<a href="/edit/{{user.reps.id}}">Edit</a> <a href="/delete/{{user.reps.id}}">Delete</a> {% endif %}
+                        {% endfor %}</td>
+                    <td>{{user.telephone_number}}</td>
+                    <td>{{user.email}}</td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
-        <button type="submit">Add a new company</button>
+        
     </div>
 </body>
 </html>
