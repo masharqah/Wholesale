@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Company Name: {{company.name}}</h1>
+    <h3>Address: {{company.adress}}</h3>
+    <h3>Contact No. : {{company.telephone_number}}</h3>
+    <h3>Email: {{company.email}}</h3>
+    <h4>Sales Representatives:</h4>
+    {% for rep in company.reps.all %}
+    
+        <h5><a href="{% url 'check_details' %}?rep_id={{ rep.id }}">{{ rep.name }}</a></h5>
+    
+    {% endfor %}
+</body>
+</html>

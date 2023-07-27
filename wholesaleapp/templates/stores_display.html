@@ -9,33 +9,45 @@
 </head>
 <body>
     <div class="container">
+        <div class="float-end"><a href="/logout">logout</a></div>
         <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Sales Representative</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">E-mail</th>
-                </tr>
-            </thead>
             <tbody>
                 {% for user in users %}
                 <tr>
-                    
-                    <td><a href="{% url 'companyView' user.id %}">{{user.name}}</a>{% if my_user.id == user.id %}<a href="/add_rep">Add Representative</a>{% endif %}</td>
-                    <td><form action="/view/{{user.reps.id}}" method="post">
-                        <select name="rep_id">
-                        {% for rep in reps %}
-                        <option value="{{user.reps.id}}">{{user.reps.name}}</option> 
-                    </select> <button type="submit" class="btn btn-primary btn-sm">Check details</button></form>{% if my_user.id == user.id %}<a href="/edit/{{user.reps.id}}">Edit</a> <a href="/delete/{{user.reps.id}}">Delete</a> {% endif %}
-                        {% endfor %}</td>
-                    <td>{{user.telephone_number}}</td>
-                    <td>{{user.email}}</td>
+                    <td><a href="/comp_view/{{user.id}}">{{ user.name }}</a>{% if my_user.id == user.id %}<a href="/add_rep"> Add Representative</a>{% endif %}</td>
+                    <td>
+                        {% if user.reps.exists %}
+                            <form action="{% url 'check_details' %}" method="post">
+                                {% csrf_token %}
+                                <select name="rep_id">
+                                    <option value="" selected disabled>Select a Representative</option>
+                                    {% for rep in user.reps.all %}
+                                        <option value="{{ rep.id }}">{{ rep.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">Check details</button>
+                            </form>
+                            {% if my_user.id == user.id %}
+                                {% if selected_rep %}
+                                    <a href="{% url 'edit_rep' selected_rep.id %}">Edit</a>
+                                    <a href="{% url 'delete_rep' selected_rep.id %}">Delete</a>
+                                {% else %}
+                                    
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            No Sales Representative Assigned
+                        {% endif %}
+                    </td>
+                    <td>{{ user.telephone_number }}</td>
+                    <td>{{ user.email }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
+            
+
+            
         </table>
-        
     </div>
 </body>
 </html>
