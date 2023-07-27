@@ -16,12 +16,14 @@
         <h2>Name: {{rep.name}}</h2>
         <h4>Representative Phone No.: {{rep.phone_no}}</h4>
         <h4>City: {{rep.city}}</h4>
-        <a href="/edit/{{rep.id}}">
-            <button>Edit</button>
-        </a>
-        <a href="/delete/{{rep.id}}">
-            <button>Delete</button>
-        </a>
+        {% if request.session.id == rep.company.id %}
+            <a href="/edit/{{rep.id}}">
+                <button>Edit</button>
+            </a>
+            <a href="/delete/{{rep.id}}">
+                <button>Delete</button>
+            </a>
+        {% endif %}
     </div>
 </body>
 </html>
