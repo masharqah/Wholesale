@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    {% load bootstrap5 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript %}
+    
 </head>
 <body>  
   <div class="container mt-5 ">
@@ -17,16 +15,20 @@
     {% csrf_token %}
 <table>
     <tr>
-        <td>First Name</td>
-       <td><input type="text" name="fname" required ></td> 
+        <td>Company Name</td>
+       <td><input type="text" name="name" required ></td> 
     </tr>
     <tr>
-        <td>Last Name</td>
-        <td><input type="text" name="lname" required ></td>
+        <td>Address</td>
+        <td><input type="text" name="adress" required ></td>
     </tr>
     <tr>
         <td>Email</td>
         <td><input type="email" name="email" required></td>
+    </tr>
+    <tr>
+        <td>Phone Number</td>
+        <td><input type="text" name="phone_number" required></td>
     </tr>
     <tr>
         <td>Password</td>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .models import User, Representative
 import bcrypt
@@ -21,8 +21,8 @@ def login(request):
         logged_user=users[0]
         request.session['name']=f"{logged_user.name}"
         request.session['logged']=True
-        request.session['id']=users.id
-    return redirect ('/home')
+        request.session['id']=logged_user.id
+        return redirect ('/home')
 
 def reg(request):
     errors = User.objects.reg_validator(request.POST)
@@ -31,17 +31,18 @@ def reg(request):
             messages.error(request, value)
         return redirect ('/')
     else:
-        User.objects.create (
+        user = User.objects.create (
             name= request.POST['name'],
-            adress= request.POST['name'],
-            phone_number= request.POST['phone_number'], #the comma after phone number wasn't there I added
+            adress= request.POST['adress'],
+            telephone_number= request.POST['phone_number'], #the comma after phone number wasn't there I added
             email= request.POST['email'],
             password=bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
             )
-    return redirect ('/')
+        request.session['id']=user.id
+        return redirect ('/home')
 
 def home(request):
-    my_user = User.objects.get(id =request.session['id'] )
+    my_user = User.objects.get(id =request.session['id'])
     users = User.objects.all()
     reps = Representative.objects.all()
     context = {
@@ -75,10 +76,13 @@ def adding(request):
 
 def edit(request,id):
     rep = Representative.objects.get(id =id)
-    return render(request,'add_rep.html',rep)
+    context = {
+        'rep':rep
+    }
+    return render(request,'edit_rep.html',context)
 
 def edit_it(request):
-    rep = User.objects.get(id = request.POST['rep_id'])
+    rep = Representative.objects.get(id = request.POST['rep_id'])
     rep.name = request.POST['rep_name']
     rep.phone_no = request.POST['phone_no']
     rep.email = request.POST['email']
@@ -90,3 +94,29 @@ def delete(request,id):
     rep_delete = Representative.objects.get(id = id)
     rep_delete.delete()
     return redirect('/home')
+
+
+
+def check_details(request):
+    if request.method == 'POST':
+        rep_id = request.POST.get('rep_id')
+        if rep_id:
+            rep = get_object_or_404(Representative, id=rep_id)
+            return render(request, 'view_rep.html', {'rep': rep})
+        else:
+            
+            return redirect('/home')
+    else:
+        rep_id = request.GET.get('rep_id')
+        if rep_id:
+            rep = get_object_or_404(Representative, id=rep_id)
+            return render(request, 'view_rep.html', {'rep': rep})
+        else:
+            return redirect('/home')
+        
+def comp_view(request,id):
+    company = User.objects.get(id = id)
+    context = {
+        'company':company
+    }
+    return render(request,'company_view.html',context)

@@ -9,8 +9,10 @@
 </head>
 <body>
     <div class="container" style="padding: 5%;">
-        <form class="row g-3">
+        <div class="float-end"><a href="/logout">logout</a></div>
+        <div class="float-end"><a href="/home">Main Page</a></div>
             <form action="/add" method="post">
+                {% csrf_token %}
                 <div class="col-12">
                     <label class="form-label">Representative Name</label>
                     <input type="text" class="form-control" id="inputAddress" style="width: 50%;" name="rep_name" >
@@ -29,14 +31,15 @@
                 </div>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width: 25%;">
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <button class="btn btn-outline-primary" for="btnradio1">Add</button>
+                    <button class="btn btn-outline-primary" for="btnradio1" type="submit">Add</button>
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
             </form>
-                    <a href="/home">
-                        <button class="btn btn-outline-primary" for="btnradio3">Cancel</button>
-                    </a>
+                <form action="/home" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary" for="btnradio3" type="submit">Cancel</button>
+                    </form>
                 </div>
-        </form>
+        
     </div>
 </body>
 </html>
