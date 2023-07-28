@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .models import User, Representative
+from django.http import JsonResponse
 import bcrypt
 
 # render login page
@@ -120,3 +121,9 @@ def comp_view(request,id):
         'company':company
     }
     return render(request,'company_view.html',context)
+
+def get_company_names(request):
+    search= request.GET.get('term')
+    objects=User.objects.filter(name__icontains=search)
+    results =[{'id': company.id, 'name': company.name} for company in objects]
+    return JsonResponse(results, safe=False)

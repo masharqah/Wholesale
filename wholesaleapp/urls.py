@@ -18,5 +18,6 @@ urlpatterns = [
     # path('createcompany', views.createcompany),
     path('edit/<int:rep_id>/', views.edit, name='edit_rep'),
     path('delete/<int:rep_id>/', views.delete, name='delete_rep'),
-    path('comp_view/<int:id>',views.comp_view),
+    path('comp_view/<int:id>',views.comp_view, name='company_view'),
+    path('autocomplete/', views.get_company_names, name = 'company-autocomplete'),
 ]
